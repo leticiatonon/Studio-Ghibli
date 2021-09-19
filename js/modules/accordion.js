@@ -1,31 +1,24 @@
-export default function initAnimaNumeros() {
-  function animaNumeros() {
-    const numeros = document.querySelectorAll('[data-numero]');
+export default class Accordion {
+  constructor(list) {
+    this.accordionList = document.querySelectorAll(list);
+    this.activeClass = 'ativo';
+  }
 
-    numeros.forEach((numero) => {
-      const total = +numero.innerText;
-      const inscremento = Math.floor(total / 100);
-      let start = 0;
-      const timer = setInterval(() => {
-        start += inscremento;
-        numero.innerText = start;
-        if (start > total) {
-          numero.innerText = total;
-          clearInterval(timer);
-        }
-      }, 25 * Math.random());
+  toggleAccordion(item) {
+    item.classList.toggle(this.activeClass);
+    item.nextElementSibling.classList.toggle(this.activeClass);
+  }
+
+  addAccordionEvent() {
+    this.accordionList.forEach((item) => {
+      item.addEventListener('click', () => this.toggleAccordion(item));
     });
   }
 
-  let observer;
-  function handleMutation(mutation) {
-    if (mutation[0].target.classList.contains('ativo')) {
-      observer.disconnect();
-      animaNumeros();
+  init() {
+    if (this.accordionList.length) {
+      this.toggleAccordion(this.accordionList[0]);
+      this.addAccordionEvent();
     }
   }
-  observer = new MutationObserver(handleMutation);
-
-  const observerTarget = document.querySelector('.numeros');
-  observer.observe(observerTarget, { attributes: true });
 }
