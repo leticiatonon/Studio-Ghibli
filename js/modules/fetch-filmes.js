@@ -1,4 +1,4 @@
-import initAnimaNumeros from './anima-numeros.js'
+import AnimaNumeros from './anima-numeros.js'
 
 export default function initFetchFilmes() {
   async function fetchFilmes(url) {
@@ -18,7 +18,8 @@ export default function initFetchFilmes() {
       const divFilme = createFilme(filme);
       numerosGrid.appendChild(divFilme);
     });
-    initAnimaNumeros();
+    const animaNumeros = new AnimaNumeros('[data-numero]', '.numeros', 'ativo');
+    animaNumeros.init();
   }
 
   fetchFilmes('./filmesapi.json');
