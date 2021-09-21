@@ -1,4 +1,4 @@
-import AnimaNumeros from './anima-numeros.js'
+import AnimaNumeros from './anima-numeros.js';
 
 export default function initFetchFilmes() {
   async function fetchFilmes(url) {
